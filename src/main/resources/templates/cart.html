@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="layout :: header"></div>
+<body>
+<div th:replace="layout :: navbar"></div>
+<div th:replace="layout :: footer"></div>
+
+
+
+<div th:if="${cart.items.isEmpty()}">
+    <p>Koszyk pusty.</p>
+</div>
+<div th:unless="${cart.items.isEmpty()}">
+    <table class="table table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">Tytuł</th>
+            <th scope="col">Autor</th>
+            <th scope="col">Cena</th>
+            <th scope="col">Ilość</th>
+            <th scope="col">Usuń</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${cart.items}">
+            <td th:text="${item.book.title}"></td>
+            <td th:text="${item.book.author}"></td>
+            <td th:text="${item.book.price}"></td>
+            <td th:text="${item.quantity}"></td>
+            <td>
+                <form th:action="@{/cart/remove/{bookId}(bookId=${item.book.id})}" method="get">
+                    <button class="btn btn-outline-danger" type="submit">Usuń</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>

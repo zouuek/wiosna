@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<div th:replace="layout :: header"></div>
+<body>
+<div th:replace="layout :: navbar"></div>
+<div th:replace="layout :: footer"></div>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12 text-center mb-4">
+      <p>Lista książek</p>
+    </div>
+  </div>
+  <div class="row">
+    <div th:each="book : ${books}" class="col-lg-3 col-md-4 col-sm-6 mb-4" style="width: 16.5rem;">
+      <div class="card h-100">
+        <img th:src="${book.image}" class="card-img-top" alt="Okładka książki" style="height: 280px; object-fit: scaledown;">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title" th:text="${book.title}">Tytuł książki</h5>
+          <p class="card-text" th:text="${book.author}">Autor książki</p>
+          <p class="card-text" th:text="${book.price} + ' PLN'">Cena książki</p>
+          <a href="#" class="btn btn-dark btn-sm mt-auto" th:href="@{/cart/add/{bookId}/1(bookId=${book.id})}">Dodaj
+            do koszyka</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
+
+
+
